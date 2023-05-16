@@ -33,7 +33,7 @@ We will use a pre-train model: VGG network to apply transfer learning. Specifica
 
 We will first talk about the cost function $J_{content}(h_C,h_G)$. <br>
 The cost function can be computed as follows:<br>
-- $J_{content}(h_C,h_G)=1/(4*H*W*D) \sum (h_C-h_G)^2$
+- $ J_{content}(h_C,h_G)=1/(4*H*W*D) \sum (h_C-h_G)^2 $
 - $H, W, D$ represents the height, width, and depth of the hidden layer $h_C$. 
 - The dimensions of $h_C$ is equivalent to $h_G$, since both images are fed through the same neural network.
 
@@ -44,7 +44,7 @@ Since we want the generated image to look like the content image, we will be sel
 We will now talk about the style function $ J_{style}(h_S,h_G)$. <br>
 The gram matrix $G$ is given by $G(A) = A \cdot A.T$. The higher $G$ is, the more features co-occur and vise versa.
 The Style function can be computed as follows:<br>
-- J_{style}(h_S, h_G) = 1/(4*D^2*(H*W)^2) \sum (G(h_S) - G(h_G))^2$
+- $ J_{style}(h_S, h_G) = 1/(4*D^2*(H*W)^2) \sum (G(h_S) - G(h_G))^2$
 - $H, W, D$ represents the height, width, and depth of the hidden layer $h_C$.
 - The dimensions of $h_S$ is equivalent to $h_G$, since both images are fed through the same neural network. We will transform the dimensions to $(H * W, D)$ in order to feed it into the gram matrix.
 
