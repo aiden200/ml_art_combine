@@ -25,11 +25,8 @@ The key idea behind this is that the shallow hidden layers of a CNN detects low 
 
 So given a generated image $G$, we can find the loss function $J(G)$ with: <br>
 - $J(G) = \alpha J_{content}(h_C,h_G) + \beta J_{style}(h_S,h_G)$
-
 - $\alpha J_{content}(h_C,h_G)$ represents the content loss function given the hidden layers of the content image denoted by $h_C$ and the hidden layers of the generated image denoted by $h_G$. 
-
 - $\beta J_{style}(h_S,h_G)$ represents the style loss function given the hidden layers of the style image denoted by $h_S$ and the hidden layers of the generated image denoted by $h_G$. 
-
 - $alpha$ and $beta$ are just arbitual constants that weigh each component. 
 
 We will use a pre-train model: VGG network to apply transfer learning. Specifically, we will be using VGG-19, a 19 layer VGG network. 
@@ -42,5 +39,22 @@ The cost function can be computed as follows:<br>
 
 
 Since we want the generated image to look like the content image, we will be selecting the hiden layer at the very end of the neural network for comparison. This will allow the model to learn that high level features needs to be preserved. 
+
+
+We will now talk about the style function $ J_{style}(h_S,h_G)$. <br>
+The gram matrix $G$ is given by $G(A) = A \cdot A.T$. The higher $G$ is, the more features co-occur and vise versa.
+The Style function can be computed as follows:<br>
+- J_{style}(h_S, h_G) = 1/(4*D^2*(H*W)^2) \sum (G(h_S) - G(h_G))^2$
+- $H, W, D$ represents the height, width, and depth of the hidden layer $h_C$.
+- The dimensions of $h_S$ is equivalent to $h_G$, since both images are fed through the same neural network. We will transform the dimensions to $(H * W, D)$ in order to feed it into the gram matrix.
+
+To generate better results, we will merge the styles cost function scores from multiple hidden layers. We will weight the layers closest to the middle layer more, since it will have a good representation of low and high level features. 
+
+Now we can apply gradient descent and train our model!
+
+
+
+
+
 
 
